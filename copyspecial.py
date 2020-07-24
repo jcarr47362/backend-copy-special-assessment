@@ -30,6 +30,12 @@ def get_special_paths(dirname):
 
 
 def copy_to(path_list, dest_dir):
+    """ copies file paths to dest_dir """
+    if not os.path.isdir(dest_dir):
+        os.makedirs(dest_dir)
+    for path in path_list:
+        shutil.copy(path, dest_dir)
+    return
 
 
 def zip_to(path_list, dest_zip):
