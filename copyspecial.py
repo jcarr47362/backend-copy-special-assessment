@@ -39,6 +39,7 @@ def copy_to(path_list, dest_dir):
 
 
 def zip_to(path_list, dest_zip):
+    """ list of file paths, zip those files up into the given zip path """
     cmd = ['zip', '-j', dest_zip]
     cmd.extend(path_list)
     print("Command I'm going to do:")
@@ -64,9 +65,13 @@ def main(args):
     # This is input data validation. If something is wrong (or missing) with
     # any required args, the general rule is to print a usage message and
     # exit(1).
+    if len(sys.argv) < 1:
+        parser.print_usage()
     special_paths = get_special_paths(ns.from_dir)
 
-    if ns.tozip:
+    if ns.todir:
+        copy_to(special_paths, ns.todir)
+    elif ns.tozip:
         zip_to(special_paths, ns.tozip)
     else:
         print('\n'.join(special_paths))
